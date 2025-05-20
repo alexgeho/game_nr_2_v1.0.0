@@ -11,7 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  http: ^0.13.6  # ✅ для работы с OpenAI API
+  flutter_dotenv: ^5.1.0
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:
@@ -20,7 +21,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-  # 👉 Добавь, если планируешь использовать локальные JSON-файлы в будущем
-
+  assets:
+    - assets/.env
 

@@ -3,7 +3,10 @@ import 'home_screen.dart';
 
 class AgeSelectorScreen extends StatelessWidget {
   const AgeSelectorScreen({super.key});
-
+  
+  
+  @override
+  Widget build(BuildContext context) {
   final List<Map<String, String>> segments = const [
     {"label": "Ages 6–8 (Grades 1–2)", "segment": "Junior1"},
     {"label": "Ages 8–10 (Grades 3–4)", "segment": "Junior2"},
@@ -13,8 +16,7 @@ class AgeSelectorScreen extends StatelessWidget {
     {"label": "Ages 16–18 (Grades 11–12)", "segment": "PreCollege"},
   ];
 
-  @override
-  Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(

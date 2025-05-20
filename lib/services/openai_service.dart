@@ -1,11 +1,13 @@
 // 📦 Импорт стандартных библиотек
 import 'dart:convert';                    // Для обработки JSON (encode/decode)
 import 'package:http/http.dart' as http; // Для отправки HTTP-запросов
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 // 🚀 Сервис для общения с OpenAI API
 class OpenAIService {
   // 🔐 Укажи свой OpenAI API-ключ здесь
-  static const String apiKey = '***REMOVED***proj-5yk4d1muvyrkuZ6QrXD-ZW-xVDTzT8RVSQVvkrwlmaWJodajZpy1-rC5vx23NNoP3uQHpZErMMT3BlbkFJ958EvZuOwGwcspv966JvDPJrwoWDz_fUNagZCmEjF-A-SRgoStBc7Ye-wx579oWIhCcFf8FigA'; // ← заменишь на свой ключ
+static final String apiKey = dotenv.env['OPENAI_API_KEY'] ?? '';
 
   // 🌍 Адрес для POST-запроса к Chat Completions API (GPT)
   static const String endpoint = 'https://api.openai.com/v1/chat/completions';
