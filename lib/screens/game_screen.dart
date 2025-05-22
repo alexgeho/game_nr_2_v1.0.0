@@ -312,79 +312,90 @@ appBar: AppBar(
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  '🧩 Let’s guess the word!',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    height: 1.4,
-                  ),
-                ),
-                const SizedBox(height: 24),
-               
-_buildCard(
-  "Hint",
-  [
-    current.hintMain,
-    ...revealedHints,
-  ].join('\n'),
+           child: Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    const Text(
+      '🧩 Let’s guess the word!',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        height: 1.4,
+      ),
+    ),
+    const SizedBox(height: 16),
+
+    if (gameEnded)
+      Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: Center(
+          child: _customButton('Play Again', _loadNewWord, big: true),
+        ),
+      ),
+
+    _buildCard(
+      "Hint",
+      [
+        current.hintMain,
+        ...revealedHints,
+      ].join('\n'),
+    ),
+
+    const SizedBox(height: 16),
+    _buildCard("Word", guessed),
+
+    if (message.isNotEmpty) ...[
+      const SizedBox(height: 10),
+      _buildCard("Feedback", message, color: Colors.green),
+    ],
+
+    const SizedBox(height: 16),
+
+    Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: TextField(
+        controller: controller,
+        onSubmitted: _handleInput,
+        decoration: const InputDecoration(
+          border: InputBorder.none,
+          labelText: 'Enter letter, word, or "hint"',
+        ),
+      ),
+    ),
+
+    const SizedBox(height: 20),
+
+    if (!gameEnded)
+      Wrap(
+        spacing: 12,
+        runSpacing: 12,
+        children: [
+          _customButton('Hint Options', () {
+            setState(() => showHintOptions = !showHintOptions);
+          }),
+          if (showHintOptions)
+            _customButton('Extra Hint', _showExtraHint),
+          if (showHintOptions)
+            _customButton('Scrambled', _showScrambledHint),
+        ],
+      ),
+  ],
 ),
 
-
-                const SizedBox(height: 16),
-                _buildCard("Word", guessed),
-                const SizedBox(height: 10),
-                if (message.isNotEmpty)
-                  _buildCard("Feedback", message, color: Colors.green),
-                const SizedBox(height: 16),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: TextField(
-                    controller: controller,
-                    onSubmitted: _handleInput,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      labelText: 'Enter letter, word, or "hint"',
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: [
-                    _customButton('Hint Options', () {
-                      setState(() => showHintOptions = !showHintOptions);
-                    }),
-                    if (showHintOptions || gameEnded)
-                      _customButton('Extra Hint', _showExtraHint),
-                    if (showHintOptions || gameEnded)
-                      _customButton('Scrambled', _showScrambledHint),
-                      
-                    if (gameEnded)
-  Padding(
-    padding: const EdgeInsets.only(bottom: 20),
-    child: _customButton('Play Again', _loadNewWord, big: true),
-  ),
-
-                  ],
-                ),
-              ],
+              
             ),
           ),
         ),
       ),
-    ),
-  );
+    );
+  
 }
+
 
 
 }
